@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Cost Calculator | Premium</title>
+    <title>Premium Travel Calculator</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="theme-dark">
@@ -15,7 +15,7 @@
     </div>
 
     <div class="app-wrapper">
-        <!-- Welcome Header with Theme Toggle -->
+        <!-- Welcome Header -->
         <header class="welcome-header glass-panel">
             <div class="header-flex">
                 <div>
@@ -26,117 +26,128 @@
             </div>
         </header>
 
-        <!-- Where To Go Selection -->
-        <section class="section-block">
-            <h2 class="section-title">WHERE TO GO?</h2>
-            <p class="helper-text">Select a destination type to begin your calculation.</p>
+        <!-- Desktop Grid Wrapper (2 Columns on Large Screens) -->
+        <div class="desktop-grid">
             
-            <div class="destination-grid">
-                <button type="button" class="dest-btn interactive-card" data-type="MOUNTAINS">
-                    <span class="dest-icon">⛰️</span>
-                    <span class="dest-tag">MOUNTAINS</span>
-                    <span class="dest-desc">Altitude & Trails</span>
-                </button>
-                <button type="button" class="dest-btn interactive-card" data-type="SEA BEACH">
-                    <span class="dest-icon">🌊</span>
-                    <span class="dest-tag">SEA BEACH</span>
-                    <span class="dest-desc">Coastal & Tides</span>
-                </button>
-                <button type="button" class="dest-btn interactive-card" data-type="NATIONAL PARK">
-                    <span class="dest-icon">🌲</span>
-                    <span class="dest-tag">NATIONAL PARK</span>
-                    <span class="dest-desc">Wildlife & Nature</span>
-                </button>
-                <button type="button" class="dest-btn interactive-card" data-type="URBAN CITY">
-                    <span class="dest-icon">🏙️</span>
-                    <span class="dest-tag">URBAN CITY</span>
-                    <span class="dest-desc">Streets & Culture</span>
-                </button>
-            </div>
-        </section>
-
-        <!-- Hardcore Calculator -->
-        <section class="section-block calculator-card glass-panel">
-            <h2 class="section-title">TRIP CALCULATOR</h2>
-            
-            <form id="calculator-form">
-                <!-- Location Info -->
-                <div class="form-row">
-                    <div class="input-group">
-                        <label>DESTINATION NAME</label>
-                        <input type="text" id="calc-dest" placeholder="Enter place name" required autocomplete="off" class="glass-input">
+            <!-- LEFT COLUMN: Calculator -->
+            <div class="left-col">
+                
+                <section class="section-block">
+                    <h2 class="section-title">WHERE TO GO?</h2>
+                    <p class="helper-text">Select a destination type to begin your calculation.</p>
+                    
+                    <div class="destination-grid">
+                        <button type="button" class="dest-btn interactive-card" data-type="MOUNTAINS">
+                            <span class="dest-icon">⛰️</span>
+                            <span class="dest-tag">MOUNTAINS</span>
+                            <span class="dest-desc">Altitude & Trails</span>
+                        </button>
+                        <button type="button" class="dest-btn interactive-card" data-type="SEA BEACH">
+                            <span class="dest-icon">🌊</span>
+                            <span class="dest-tag">SEA BEACH</span>
+                            <span class="dest-desc">Coastal & Tides</span>
+                        </button>
+                        <button type="button" class="dest-btn interactive-card" data-type="NATIONAL PARK">
+                            <span class="dest-icon">🌲</span>
+                            <span class="dest-tag">NATIONAL PARK</span>
+                            <span class="dest-desc">Wildlife & Nature</span>
+                        </button>
+                        <button type="button" class="dest-btn interactive-card" data-type="URBAN CITY">
+                            <span class="dest-icon">🏙️</span>
+                            <span class="dest-tag">URBAN CITY</span>
+                            <span class="dest-desc">Streets & Culture</span>
+                        </button>
                     </div>
-                    <div class="input-group">
-                        <label>DESTINATION TYPE</label>
-                        <input type="text" id="calc-type" placeholder="Select from above" readonly required class="glass-input readonly-input">
-                    </div>
-                </div>
+                </section>
 
-                <!-- Clean Transit Info (Multi-Select + Cost) -->
-                <div class="form-row" style="margin-top: 20px;">
-                    <div class="input-group">
-                        <label>TRANSIT MODES (TAP ALL USED)</label>
-                        <div class="transit-selector">
-                            <button type="button" class="t-mode-btn" data-val="FLIGHT">FLIGHT</button>
-                            <button type="button" class="t-mode-btn" data-val="EXPRESS TRAIN">EXPRESS TRAIN</button>
-                            <button type="button" class="t-mode-btn" data-val="LOCAL TRAIN">LOCAL TRAIN</button>
-                            <button type="button" class="t-mode-btn" data-val="BUS">BUS</button>
-                            <button type="button" class="t-mode-btn" data-val="CAB">CAB</button>
-                            <button type="button" class="t-mode-btn" data-val="FERRY">FERRY</button>
+                <section class="section-block calculator-card glass-panel">
+                    <h2 class="section-title">TRIP CALCULATOR</h2>
+                    
+                    <form id="calculator-form">
+                        <!-- Location Info -->
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label>DESTINATION NAME</label>
+                                <input type="text" id="calc-dest" placeholder="Enter place name" required autocomplete="off" class="glass-input">
+                            </div>
+                            <div class="input-group">
+                                <label>DESTINATION TYPE</label>
+                                <input type="text" id="calc-type" placeholder="Select from above" readonly required class="glass-input readonly-input">
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-group">
-                        <label>TOTAL TICKETS COST</label>
-                        <input type="number" id="calc-transit-cost" class="cost-input glass-input" placeholder="0.00" min="0" step="1" required>
-                    </div>
-                </div>
 
-                <!-- Stay & Duration Info -->
-                <div class="form-row" style="margin-top: 20px;">
-                    <div class="input-group">
-                        <label>ACCOMMODATION PER NIGHT</label>
-                        <input type="number" id="calc-hotel-cost" class="cost-input glass-input" placeholder="0.00" min="0" step="1" required>
-                    </div>
-                    <div class="input-group">
-                        <label>NUMBER OF NIGHTS</label>
-                        <input type="number" id="calc-nights" class="cost-input glass-input" placeholder="0" min="0" step="1" required>
-                    </div>
-                </div>
+                        <!-- Transit Multi-Select -->
+                        <div class="form-row" style="margin-top: 20px;">
+                            <div class="input-group">
+                                <label>TRANSIT MODES (TAP ALL USED)</label>
+                                <div class="transit-selector">
+                                    <button type="button" class="t-mode-btn" data-val="FLIGHT">FLIGHT</button>
+                                    <button type="button" class="t-mode-btn" data-val="EXPRESS TRAIN">EXPRESS TRAIN</button>
+                                    <button type="button" class="t-mode-btn" data-val="LOCAL TRAIN">LOCAL TRAIN</button>
+                                    <button type="button" class="t-mode-btn" data-val="BUS">BUS</button>
+                                    <button type="button" class="t-mode-btn" data-val="CAB">CAB</button>
+                                    <button type="button" class="t-mode-btn" data-val="FERRY">FERRY</button>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label>TOTAL TICKETS COST</label>
+                                <input type="number" id="calc-transit-cost" class="cost-input glass-input" placeholder="0.00" min="0" step="1" required>
+                            </div>
+                        </div>
 
-                <!-- Living Info -->
-                <div class="form-row" style="margin-top: 20px;">
-                    <div class="input-group">
-                        <label>FOOD & ACTIVITIES (PER DAY)</label>
-                        <input type="number" id="calc-daily-cost" class="cost-input glass-input" placeholder="0.00" min="0" step="1" required>
+                        <!-- Stay & Duration -->
+                        <div class="form-row" style="margin-top: 20px;">
+                            <div class="input-group">
+                                <label>ACCOMMODATION PER NIGHT</label>
+                                <input type="number" id="calc-hotel-cost" class="cost-input glass-input" placeholder="0.00" min="0" step="1" required>
+                            </div>
+                            <div class="input-group">
+                                <label>NUMBER OF NIGHTS</label>
+                                <input type="number" id="calc-nights" class="cost-input glass-input" placeholder="0" min="0" step="1" required>
+                            </div>
+                        </div>
+
+                        <!-- Living Info -->
+                        <div class="form-row" style="margin-top: 20px;">
+                            <div class="input-group">
+                                <label>FOOD & ACTIVITIES (PER DAY)</label>
+                                <input type="number" id="calc-daily-cost" class="cost-input glass-input" placeholder="0.00" min="0" step="1" required>
+                            </div>
+                            <div class="input-group">
+                                <label>NUMBER OF DAYS</label>
+                                <input type="number" id="calc-days" class="cost-input glass-input" placeholder="0" min="0" step="1" required>
+                            </div>
+                        </div>
+
+                        <!-- Live Total -->
+                        <div class="live-total-box">
+                            <span class="total-label">ESTIMATED TOTAL TRIP COST</span>
+                            <h1 id="live-total" class="total-value gradient-text">0.00</h1>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="primary-btn pulse-hover">SAVE ITINERARY</button>
+                            <button type="button" id="btn-clear" class="secondary-btn">CLEAR</button>
+                        </div>
+                    </form>
+                </section>
+            </div> <!-- End Left Col -->
+
+            <!-- RIGHT COLUMN: Saved Itineraries -->
+            <div class="right-col">
+                <section class="section-block">
+                    <h2 class="section-title">SAVED ITINERARIES</h2>
+                    <p class="helper-text">Your past calculations will appear here.</p>
+                    <div id="saved-trips-list" class="trips-list">
+                        <!-- Trip cards inject here -->
                     </div>
-                    <div class="input-group">
-                        <label>NUMBER OF DAYS</label>
-                        <input type="number" id="calc-days" class="cost-input glass-input" placeholder="0" min="0" step="1" required>
-                    </div>
-                </div>
+                </section>
+            </div> <!-- End Right Col -->
 
-                <!-- Live Total Display -->
-                <div class="live-total-box">
-                    <span class="total-label">ESTIMATED TOTAL TRIP COST</span>
-                    <h1 id="live-total" class="total-value gradient-text">0.00</h1>
-                </div>
-
-                <div class="form-actions">
-                    <button type="submit" class="primary-btn pulse-hover">SAVE ITINERARY</button>
-                    <button type="button" id="btn-clear" class="secondary-btn">CLEAR</button>
-                </div>
-            </form>
-        </section>
-
-        <!-- Saved Itineraries -->
-        <section class="section-block">
-            <h2 class="section-title">SAVED ITINERARIES</h2>
-            <div id="saved-trips-list" class="trips-list">
-                <!-- Trip cards will inject here -->
-            </div>
-        </section>
+        </div> <!-- End Desktop Grid -->
     </div>
 
+    <!-- Script placed at the very bottom ensures HTML is loaded first -->
     <script src="script.js"></script>
 </body>
 </html>
