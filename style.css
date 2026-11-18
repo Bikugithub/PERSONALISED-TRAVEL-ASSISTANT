@@ -1,0 +1,354 @@
+/* INTERFACE THEMES */
+body.theme-midnight {
+    --bg-page: #0f172a;
+    --bg-card: #1e293b;
+    --bg-input: #0f172a;
+    --text-main: #f8fafc;
+    --text-dim: #94a3b8;
+    --accent: #38bdf8;
+    --border: #334155;
+    --outbound: #eab308;
+    --return: #10b981;
+}
+
+body.theme-summit {
+    --bg-page: #f8fafc;
+    --bg-card: #ffffff;
+    --bg-input: #f1f5f9;
+    --text-main: #0f172a;
+    --text-dim: #475569;
+    --accent: #0284c7;
+    --border: #e2e8f0;
+    --outbound: #d97706;
+    --return: #059669;
+}
+
+body.theme-river {
+    --bg-page: #082f49;
+    --bg-card: #0c4a6e;
+    --bg-input: #082f49;
+    --text-main: #f0f9ff;
+    --text-dim: #7dd3fc;
+    --accent: #38bdf8;
+    --border: #0369a1;
+    --outbound: #fbbf24;
+    --return: #34d399;
+}
+
+body.theme-rail {
+    --bg-page: #1c1917;
+    --bg-card: #292524;
+    --bg-input: #1c1917;
+    --text-main: #fafaf9;
+    --text-dim: #a8a29e;
+    --accent: #fb923c;
+    --border: #44403c;
+    --outbound: #fcd34d;
+    --return: #4ade80;
+}
+
+/* RESET & BASE */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    padding: 16px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.app-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* NAVIGATION HEADER */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+}
+
+.brand-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 1.5px;
+}
+
+.brand-subtitle {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    margin-top: 2px;
+}
+
+.action-menu {
+    display: flex;
+    gap: 8px;
+}
+
+.menu-btn {
+    background: var(--bg-card);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.menu-btn:active {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* UTILITY PANELS */
+.utility-panel {
+    background: var(--bg-card);
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.panel-header h3 {
+    font-size: 0.9rem;
+    color: var(--accent);
+    letter-spacing: 1px;
+}
+
+.close-btn {
+    background: var(--bg-input);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.theme-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.theme-trigger {
+    background: var(--bg-input);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* DASHBOARD */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.metric-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 16px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.border-accent {
+    border-bottom: 4px solid var(--accent);
+}
+
+.metric-label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+}
+
+.metric-value {
+    font-size: 2.2rem;
+    font-weight: 800;
+}
+
+/* FORMS */
+.form-card, .manifest-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+}
+
+input, select {
+    width: 100%;
+    height: 42px;
+    padding: 0 10px;
+    background: var(--bg-input);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.submit-btn {
+    width: 100%;
+    height: 46px;
+    background: var(--accent);
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+/* LOG LIST */
+.filter-select {
+    width: auto;
+    height: 32px;
+    font-size: 0.75rem;
+}
+
+.log-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.log-item {
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.log-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.direction-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    border: 1px solid;
+}
+
+.badge-outbound {
+    color: var(--outbound);
+    border-color: var(--outbound);
+    background: rgba(234, 179, 8, 0.1);
+}
+
+.badge-return {
+    color: var(--return);
+    border-color: var(--return);
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.log-date {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-dim);
+}
+
+.route-text {
+    font-size: 1.1rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.route-arrow {
+    color: var(--accent);
+    margin: 0 6px;
+}
+
+.log-meta {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-dim);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.del-btn {
+    background: transparent;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+@media (max-width: 500px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
