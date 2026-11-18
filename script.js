@@ -7,7 +7,6 @@ try {
     }
 } catch(e) {}
 
-// Use window.onload to guarantee the HTML is 100% loaded before the script runs
 window.onload = function() {
     var calcDest = document.getElementById("calc-dest");
     var calcType = document.getElementById("calc-type");
@@ -15,33 +14,49 @@ window.onload = function() {
     var tripsListEl = document.getElementById("saved-trips-list");
     var liveTotalEl = document.getElementById("live-total");
 
-    // 1. EVENT DELEGATION: Bulletproof button clicking
-    document.body.addEventListener("click", function(e) {
-        // Check if a destination button (or the text inside it) was clicked
-        var btn = e.target.closest(".dest-btn");
-        
-        if (btn) {
-            // Remove active class from all buttons
-            document.querySelectorAll(".dest-btn").forEach(function(b) { 
-                b.classList.remove("active"); 
-            });
-            
-            // Add active class to the clicked button
-            btn.classList.add("active");
-            
-            // Set the read-only input value to the destination type
-            if (calcType) {
-                calcType.value = btn.getAttribute("data-type");
-            }
-            
-            // Auto-focus the destination name field
-            if (calcDest) {
-                calcDest.focus();
-            }
+    // 1. THEME TOGGLE LOGIC (DARK / LIGHT)
+    var themeToggleBtn = document.getElementById("theme-toggle");
+    var currentTheme = localStorage.getItem("buddyTheme") || "dark";
+
+    if (currentTheme === "light") {
+        document.body.classList.add("light-mode");
+        themeToggleBtn.innerHTML = "☾"; // Moon icon for light mode
+    }
+
+    themeToggleBtn.addEventListener("click", function() {
+        document.body.classList.toggle("light-mode");
+        if (document.body.classList.contains("light-mode")) {
+            localStorage.setItem("buddyTheme", "light");
+            this.innerHTML = "☾"; 
+        } else {
+            localStorage.setItem("buddyTheme", "dark");
+            this.innerHTML = "☼"; // Sun icon for dark mode
         }
     });
 
-    // 2. LIVE CALCULATOR
+    // 2. EVENT DELEGATION: Bulletproof button clicking
+    document.body.addEventListener("click", function(e) {
+        
+        // Handle "WHERE TO GO" buttons
+        var destBtn = e.target.closest(".dest-btn");
+        if (destBtn) {
+            document.querySelectorAll(".dest-btn").forEach(function(b) { 
+                b.classList.remove("active"); 
+            });
+            destBtn.classList.add("active");
+            if (calcType) calcType.value = destBtn.getAttribute("data-type");
+            if (calcDest) calcDest.focus();
+        }
+
+        // Handle "TRANSIT MULTI-SELECT" pills
+        var transitBtn = e.target.closest(".t-mode-btn");
+        if (transitBtn) {
+            // Toggles the selection on and off (allows multiple selections)
+            transitBtn.classList.toggle("active");
+        }
+    });
+
+    // 3. LIVE CALCULATOR
     function calculateTotal() {
         var tCost = parseFloat(document.getElementById("calc-transit-cost").value) || 0;
         var hCost = parseFloat(document.getElementById("calc-hotel-cost").value) || 0;
@@ -56,24 +71,33 @@ window.onload = function() {
         }
     }
 
-    // Attach input listeners using delegation to catch all typing
+    // Attach input listeners to catch all typing
     document.body.addEventListener("input", function(e) {
         if (e.target.classList.contains("cost-input")) {
             calculateTotal();
         }
     });
 
-    // 3. FORM SUBMISSION
+    // 4. FORM SUBMISSION
     if (form) {
         form.addEventListener("submit", function(e) {
             e.preventDefault();
 
-            // Safety Check: Ensure a category was selected
+            // Safety Check: Destination Type
             var typeVal = calcType.value;
             if (!typeVal) {
-                alert("Please select a DESTINATION TYPE (Mountains, Sea Beach, etc.) from the buttons above first.");
+                alert("Please select a DESTINATION TYPE from the top buttons first.");
                 return;
             }
+
+            // Gather all selected transit modes
+            var selectedTransits = [];
+            document.querySelectorAll(".t-mode-btn.active").forEach(function(btn) {
+                selectedTransits.push(btn.getAttribute("data-val"));
+            });
+            
+            // Format the string for the history card
+            var transitString = selectedTransits.length > 0 ? selectedTransits.join(" + ") : "NOT SPECIFIED";
 
             var tCost = parseFloat(document.getElementById("calc-transit-cost").value) || 0;
             var hCost = parseFloat(document.getElementById("calc-hotel-cost").value) || 0;
@@ -86,7 +110,7 @@ window.onload = function() {
                 id: Date.now(),
                 destination: calcDest.value.trim().toUpperCase(),
                 type: typeVal,
-                transitMode: document.getElementById("calc-transit").value,
+                transitModes: transitString,
                 transitCost: tCost,
                 stayCost: (hCost * nights),
                 livingCost: (dCost * days),
@@ -101,26 +125,26 @@ window.onload = function() {
             
             renderSavedTrips();
 
-            // Reset form but keep the category active
+            // Reset form but keep the category active, clear the transit buttons
             form.reset();
             calcType.value = typeVal; 
+            document.querySelectorAll(".t-mode-btn").forEach(function(b) { b.classList.remove("active"); });
             calculateTotal();
         });
     }
 
-    // 4. CLEAR BUTTON
+    // 5. CLEAR BUTTON
     var btnClear = document.getElementById("btn-clear");
     if (btnClear) {
         btnClear.addEventListener("click", function() {
             if (form) form.reset();
-            document.querySelectorAll(".dest-btn").forEach(function(b) { 
-                b.classList.remove("active"); 
-            });
+            document.querySelectorAll(".dest-btn").forEach(function(b) { b.classList.remove("active"); });
+            document.querySelectorAll(".t-mode-btn").forEach(function(b) { b.classList.remove("active"); });
             calculateTotal();
         });
     }
 
-    // 5. RENDER TRIPS TO SCREEN
+    // 6. RENDER TRIPS TO SCREEN
     function renderSavedTrips() {
         if (!tripsListEl) return;
         tripsListEl.innerHTML = "";
@@ -146,8 +170,8 @@ window.onload = function() {
                 '</div>' +
                 '<div class="trip-breakdown">' +
                     '<div class="breakdown-row">' +
-                        '<span>TRANSIT (' + trip.transitMode + ')</span>' +
-                        '<span>' + tFmt + '</span>' +
+                        '<span>TRANSIT</span>' +
+                        '<span class="transit-modes-text">' + trip.transitModes + ' <br> <strong>' + tFmt + '</strong></span>' +
                     '</div>' +
                     '<div class="breakdown-row">' +
                         '<span>ACCOMMODATION</span>' +
@@ -177,4 +201,3 @@ window.onload = function() {
     // Initialize list when page loads
     renderSavedTrips();
 };
-      
