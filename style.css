@@ -1,4 +1,4 @@
-/* ANIME / NEO-BRUTALIST THEME VARIABLES */
+/* ANIME / NEO-BRUTALIST THEME - EYE COMFORT EDITION */
 :root {
     --bg-base: #121212;
     --bg-panel: #1e1e1e;
@@ -6,24 +6,30 @@
     --text-inverted: #000000;
     --text-muted: #a0a0a0;
     --border-color: #444444;
-    --hard-shadow: #ffffff; /* Hard shadow color */
-    --danger: #ff3366;
+    --hard-shadow: #ffffff;
+    --danger: #ef4444; /* Softer red */
     
-    /* Moving Gradient Colors */
-    --grad-1: #ff3366;
-    --grad-2: #ff9933;
-    --grad-3: #7000ff;
-    --grad-4: #00f0ff;
+    /* Eye-Comfortable Moving Gradient Colors (Cool Aurora) */
+    --grad-1: #6366f1; /* Soft Indigo */
+    --grad-2: #8b5cf6; /* Soft Violet */
+    --grad-3: #3b82f6; /* Calm Blue */
+    --grad-4: #06b6d4; /* Gentle Cyan */
 }
 
 body.light-mode {
-    --bg-base: #f0f0f0;
+    --bg-base: #f4f4f4;
     --bg-panel: #ffffff;
     --text-main: #000000;
     --text-inverted: #ffffff;
     --text-muted: #555555;
     --border-color: #000000;
     --hard-shadow: #000000;
+    
+    /* Pastel, smooth gradient for Light Mode */
+    --grad-1: #818cf8; 
+    --grad-2: #a78bfa; 
+    --grad-3: #60a5fa; 
+    --grad-4: #22d3ee; 
 }
 
 * {
@@ -79,7 +85,7 @@ body {
 .anime-panel {
     background: var(--bg-panel);
     border: 3px solid var(--border-color);
-    border-radius: 8px; /* Sharper corners */
+    border-radius: 8px;
     box-shadow: 4px 4px 0px var(--border-color);
 }
 
@@ -147,7 +153,7 @@ body {
 .interactive-card.active {
     background: linear-gradient(270deg, var(--grad-1), var(--grad-2), var(--grad-3), var(--grad-4));
     background-size: 300% 300%;
-    animation: movingGradient 4s ease infinite;
+    animation: movingGradient 5s ease infinite; /* Slower for eye comfort */
     border: 3px solid var(--text-main);
     box-shadow: 6px 6px 0px var(--text-main);
     transform: translate(-2px, -2px);
@@ -155,7 +161,7 @@ body {
 .interactive-card.active .dest-tag, 
 .interactive-card.active .dest-desc { 
     color: #ffffff; /* Always white text on active gradient */
-    text-shadow: 1px 1px 0px rgba(0,0,0,0.5); /* Pop text off gradient */
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.3); /* Softer shadow */
 }
 
 .dest-icon { font-size: 2rem; margin-bottom: 12px; }
@@ -199,12 +205,12 @@ body {
 .t-mode-btn.active {
     background: linear-gradient(270deg, var(--grad-1), var(--grad-2), var(--grad-3), var(--grad-4));
     background-size: 300% 300%;
-    animation: movingGradient 4s ease infinite;
+    animation: movingGradient 5s ease infinite;
     color: #ffffff;
     border-color: var(--text-main); 
     box-shadow: 4px 4px 0px var(--text-main);
     transform: translate(-2px, -2px);
-    text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.3);
 }
 
 /* TOTAL DISPLAY */
@@ -215,7 +221,7 @@ body {
     font-size: 3.5rem; font-weight: 900; margin-top: 8px;
     background: linear-gradient(270deg, var(--grad-1), var(--grad-2), var(--grad-3), var(--grad-4));
     background-size: 300% 300%;
-    animation: movingGradient 4s ease infinite;
+    animation: movingGradient 5s ease infinite;
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     word-break: break-all; line-height: 1.1;
     text-shadow: 4px 4px 0px rgba(0,0,0,0.1);
@@ -228,12 +234,12 @@ body {
     width: 100%; height: 60px;
     background: linear-gradient(270deg, var(--grad-1), var(--grad-2), var(--grad-3), var(--grad-4));
     background-size: 300% 300%;
-    animation: movingGradient 4s ease infinite;
+    animation: movingGradient 5s ease infinite;
     color: #ffffff; border: 3px solid var(--text-main); border-radius: 8px;
     font-size: 1.1rem; font-weight: 900; letter-spacing: 2px;
     cursor: pointer; transition: all 0.15s ease;
     box-shadow: 6px 6px 0px var(--text-main);
-    text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.3);
 }
 .pulse-action:active {
     transform: translate(6px, 6px);
