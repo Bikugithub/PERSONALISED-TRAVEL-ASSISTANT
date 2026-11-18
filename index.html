@@ -9,10 +9,15 @@
 <body>
 
     <div class="app-wrapper">
-        <!-- Welcome Header -->
+        <!-- Welcome Header with Theme Toggle -->
         <header class="welcome-header">
-            <h1 class="main-title">WELCOME, BUDDY.</h1>
-            <p class="subtitle">HARDCORE TRAVEL COST ESTIMATOR</p>
+            <div class="header-flex">
+                <div>
+                    <h1 class="main-title">WELCOME, BUDDY.</h1>
+                    <p class="subtitle">HARDCORE TRAVEL COST ESTIMATOR</p>
+                </div>
+                <button type="button" id="theme-toggle" class="theme-icon-btn" title="Toggle Light/Dark Theme">☼</button>
+            </div>
         </header>
 
         <!-- Where To Go Selection -->
@@ -46,7 +51,7 @@
             
             <form id="calculator-form">
                 <!-- Location Info -->
-                <div class="form-row" style="margin-bottom: 24px;">
+                <div class="form-row">
                     <div class="input-group">
                         <label>DESTINATION NAME</label>
                         <input type="text" id="calc-dest" placeholder="Enter place name" required autocomplete="off">
@@ -57,22 +62,21 @@
                     </div>
                 </div>
 
-                <!-- TRANSIT BUDGET SECTION (MULTI-SELECT) -->
-                <div class="budget-section">
-                    <h3 class="sub-heading">TRANSIT BUDGET</h3>
-                    <div class="input-group" style="margin-bottom: 12px;">
-                        <label>SELECT ALL TRANSIT MODES USED</label>
+                <!-- Clean Transit Info (Multi-Select + Cost) -->
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>TRANSIT MODES (TAP ALL USED)</label>
                         <div class="transit-selector">
                             <button type="button" class="t-mode-btn" data-val="FLIGHT">FLIGHT</button>
                             <button type="button" class="t-mode-btn" data-val="EXPRESS TRAIN">EXPRESS TRAIN</button>
                             <button type="button" class="t-mode-btn" data-val="LOCAL TRAIN">LOCAL TRAIN</button>
-                            <button type="button" class="t-mode-btn" data-val="BUS / COACH">BUS / COACH</button>
-                            <button type="button" class="t-mode-btn" data-val="CAB / CAR">CAB / CAR</button>
+                            <button type="button" class="t-mode-btn" data-val="BUS">BUS</button>
+                            <button type="button" class="t-mode-btn" data-val="CAB">CAB</button>
                             <button type="button" class="t-mode-btn" data-val="FERRY">FERRY</button>
                         </div>
                     </div>
                     <div class="input-group">
-                        <label>TOTAL COMBINED TRANSIT COST (ROUND TRIP)</label>
+                        <label>TOTAL TICKETS COST</label>
                         <input type="number" id="calc-transit-cost" class="cost-input" placeholder="0.00" min="0" step="1" required>
                     </div>
                 </div>
