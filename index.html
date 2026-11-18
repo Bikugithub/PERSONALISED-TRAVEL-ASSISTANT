@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOYAGE | Transit Ledger</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-midnight">
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="top-nav">
+            <div class="brand-block">
+                <h1 class="brand-title">VOYAGE LEDGER</h1>
+                <p id="owner-name" class="brand-subtitle">BIKRAM'S TRAVEL MANIFEST</p>
+            </div>
+            <div class="action-menu">
+                <button type="button" id="btn-theme" class="menu-btn">THEME</button>
+                <button type="button" id="btn-export" class="menu-btn">SNAPSHOT</button>
+            </div>
+        </header>
+
+        <!-- Theme Switcher Panel -->
+        <section id="panel-theme" class="utility-panel hidden">
+            <div class="panel-header">
+                <h3>INTERFACE AESTHETICS</h3>
+                <button type="button" id="btn-close-theme" class="close-btn">CLOSE</button>
+            </div>
+            <div class="theme-options">
+                <button type="button" class="theme-trigger" data-theme="theme-midnight">MIDNIGHT EXPRESS</button>
+                <button type="button" class="theme-trigger" data-theme="theme-summit">SNOW SUMMIT</button>
+                <button type="button" class="theme-trigger" data-theme="theme-river">RIVER FERRY</button>
+                <button type="button" class="theme-trigger" data-theme="theme-rail">STEEL RAIL</button>
+            </div>
+        </section>
+
+        <!-- Dashboard Metrics -->
+        <section class="dashboard-grid">
+            <div class="metric-box">
+                <span class="metric-label">TOTAL EXPEDITIONS</span>
+                <h2 id="val-total-trips" class="metric-value">0</h2>
+            </div>
+            <div class="metric-box border-accent">
+                <span class="metric-label">UPCOMING / ACTIVE</span>
+                <h2 id="val-active-trips" class="metric-value">0</h2>
+            </div>
+        </section>
+
+        <!-- Record Entry Form -->
+        <section class="form-card">
+            <h3 class="section-title">LOG NEW TRANSIT</h3>
+            <form id="transit-form">
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>DIRECTION</label>
+                        <select id="input-direction" required>
+                            <option value="OUTBOUND">OUTBOUND (DEPARTURE)</option>
+                            <option value="RETURN">RETURN (HOMEWARD)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>TRANSIT MODE</label>
+                        <select id="input-mode" required>
+                            <option value="REGIONAL TRAIN">REGIONAL TRAIN</option>
+                            <option value="EXPRESS TRAIN">EXPRESS TRAIN</option>
+                            <option value="RIVER BOAT">RIVER BOAT / FERRY</option>
+                            <option value="FLIGHT">FLIGHT</option>
+                            <option value="CAB / BUS">CAB / BUS</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>ORIGIN (FROM)</label>
+                        <input type="text" id="input-origin" placeholder="e.g. Kolkata / Howrah" required autocomplete="off">
+                    </div>
+                    <div class="input-group">
+                        <label>DESTINATION (TO)</label>
+                        <input type="text" id="input-destination" placeholder="e.g. Darjeeling" required autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>TRAVEL DATE</label>
+                        <input type="date" id="input-date" required>
+                    </div>
+                    <div class="input-group">
+                        <label>CO-PASSENGERS</label>
+                        <input type="text" id="input-companions" placeholder="e.g. Bonolota, Ma, Dada" autocomplete="off">
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">ADD TO MANIFEST</button>
+            </form>
+        </section>
+
+        <!-- Manifest / History List -->
+        <section class="manifest-card">
+            <div class="panel-header">
+                <h3 class="section-title">TRAVEL MANIFEST</h3>
+                <select id="filter-direction" class="filter-select">
+                    <option value="ALL">ALL LOGS</option>
+                    <option value="OUTBOUND">OUTBOUND ONLY</option>
+                    <option value="RETURN">RETURN ONLY</option>
+                </select>
+            </div>
+            
+            <div id="manifest-list" class="log-list">
+                <!-- Logs injected via JS -->
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
