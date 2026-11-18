@@ -1,7 +1,7 @@
 // Global State - Loads saved trips
 var tripsData = [];
 try {
-    var saved = localStorage.getItem("buddyTravelLedger");
+    var saved = localStorage.getItem("premiumTravelLedger");
     if (saved) {
         tripsData = JSON.parse(saved);
     }
@@ -13,31 +13,43 @@ window.onload = function() {
     var form = document.getElementById("calculator-form");
     var tripsListEl = document.getElementById("saved-trips-list");
     var liveTotalEl = document.getElementById("live-total");
+    var cursorGlow = document.getElementById("cursor-glow");
 
-    // 1. THEME TOGGLE LOGIC (DARK / LIGHT)
+    // 1. AMBIENT BACKGROUND CURSOR TRACKING
+    if (cursorGlow) {
+        document.addEventListener("mousemove", function(e) {
+            // Smoothly move the glowing orb to follow the mouse
+            requestAnimationFrame(function() {
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+            });
+        });
+    }
+
+    // 2. THEME TOGGLE LOGIC (DARK / LIGHT)
     var themeToggleBtn = document.getElementById("theme-toggle");
-    var currentTheme = localStorage.getItem("buddyTheme") || "dark";
+    var currentTheme = localStorage.getItem("premiumTheme") || "dark";
 
     if (currentTheme === "light") {
         document.body.classList.add("light-mode");
-        themeToggleBtn.innerHTML = "☾"; // Moon icon for light mode
+        themeToggleBtn.innerHTML = "☾"; 
     }
 
     themeToggleBtn.addEventListener("click", function() {
         document.body.classList.toggle("light-mode");
         if (document.body.classList.contains("light-mode")) {
-            localStorage.setItem("buddyTheme", "light");
+            localStorage.setItem("premiumTheme", "light");
             this.innerHTML = "☾"; 
         } else {
-            localStorage.setItem("buddyTheme", "dark");
-            this.innerHTML = "☼"; // Sun icon for dark mode
+            localStorage.setItem("premiumTheme", "dark");
+            this.innerHTML = "☼"; 
         }
     });
 
-    // 2. EVENT DELEGATION: Bulletproof button clicking
+    // 3. EVENT DELEGATION: Bulletproof button clicking for Destinations & Transits
     document.body.addEventListener("click", function(e) {
         
-        // Handle "WHERE TO GO" buttons
+        // Handle "WHERE TO GO" interactive cards
         var destBtn = e.target.closest(".dest-btn");
         if (destBtn) {
             document.querySelectorAll(".dest-btn").forEach(function(b) { 
@@ -45,7 +57,13 @@ window.onload = function() {
             });
             destBtn.classList.add("active");
             if (calcType) calcType.value = destBtn.getAttribute("data-type");
-            if (calcDest) calcDest.focus();
+            
+            // Add a tiny delay before focusing to let the 3D animation play smoothly
+            if (calcDest) {
+                setTimeout(function() {
+                    calcDest.focus();
+                }, 100);
+            }
         }
 
         // Handle "TRANSIT MULTI-SELECT" pills
@@ -56,7 +74,7 @@ window.onload = function() {
         }
     });
 
-    // 3. LIVE CALCULATOR
+    // 4. LIVE CALCULATOR
     function calculateTotal() {
         var tCost = parseFloat(document.getElementById("calc-transit-cost").value) || 0;
         var hCost = parseFloat(document.getElementById("calc-hotel-cost").value) || 0;
@@ -78,7 +96,7 @@ window.onload = function() {
         }
     });
 
-    // 4. FORM SUBMISSION
+    // 5. FORM SUBMISSION
     if (form) {
         form.addEventListener("submit", function(e) {
             e.preventDefault();
@@ -86,7 +104,7 @@ window.onload = function() {
             // Safety Check: Destination Type
             var typeVal = calcType.value;
             if (!typeVal) {
-                alert("Please select a DESTINATION TYPE from the top buttons first.");
+                alert("Please select a DESTINATION TYPE from the animated cards above first.");
                 return;
             }
 
@@ -120,7 +138,7 @@ window.onload = function() {
             // Add to history and save
             tripsData.unshift(newTrip);
             try { 
-                localStorage.setItem("buddyTravelLedger", JSON.stringify(tripsData)); 
+                localStorage.setItem("premiumTravelLedger", JSON.stringify(tripsData)); 
             } catch(err) {}
             
             renderSavedTrips();
@@ -133,7 +151,7 @@ window.onload = function() {
         });
     }
 
-    // 5. CLEAR BUTTON
+    // 6. CLEAR BUTTON
     var btnClear = document.getElementById("btn-clear");
     if (btnClear) {
         btnClear.addEventListener("click", function() {
@@ -144,13 +162,13 @@ window.onload = function() {
         });
     }
 
-    // 6. RENDER TRIPS TO SCREEN
+    // 7. RENDER TRIPS TO SCREEN
     function renderSavedTrips() {
         if (!tripsListEl) return;
         tripsListEl.innerHTML = "";
 
         if (tripsData.length === 0) {
-            tripsListEl.innerHTML = '<div style="color:var(--text-muted); text-align:center; padding: 20px; border: 1px dashed var(--border-color);">No itineraries saved yet. Calculate a trip above!</div>';
+            tripsListEl.innerHTML = '<div style="color:var(--text-muted); text-align:center; padding: 30px; border: 1px dashed var(--glass-border); border-radius: 16px; background: var(--glass-bg);">No itineraries saved yet. Calculate an adventure above!</div>';
             return;
         }
 
@@ -183,14 +201,14 @@ window.onload = function() {
                     '</div>' +
                 '</div>' +
                 '<div class="trip-total-row">' +
-                    '<span style="font-size:0.75rem; font-weight:800;">CALCULATED TOTAL</span>' +
+                    '<span style="font-size:0.75rem; font-weight:800; color:var(--text-muted);">CALCULATED TOTAL</span>' +
                     '<span class="trip-total-val">' + totFmt + '</span>' +
                 '</div>' +
                 '<button type="button" class="del-btn" data-id="' + trip.id + '">DELETE RECORD</button>';
 
             card.querySelector(".del-btn").addEventListener("click", function() {
                 tripsData = tripsData.filter(function(t) { return t.id !== trip.id; });
-                try { localStorage.setItem("buddyTravelLedger", JSON.stringify(tripsData)); } catch(err) {}
+                try { localStorage.setItem("premiumTravelLedger", JSON.stringify(tripsData)); } catch(err) {}
                 renderSavedTrips();
             });
 
